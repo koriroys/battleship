@@ -19,6 +19,7 @@ describe Game do
 end
 
 describe Board do
+  lete(:subject) { described_class.new(ships: double('ships'))}
   it "can seed itself with data" do
 
   end

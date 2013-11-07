@@ -1,27 +1,17 @@
 class Ship
-  def initialize(size: 0)
-    @size = size
-  end
+  attr_reader :id, :size
 
-  def size
-    @size
+  def initialize(size: 0, id: id)
+    @size = size
+    @id = id
   end
 end
 
 class Game
+  attr_reader :human_board, :computer_board
   def initialize(human_board: human_board, computer_board: computer_board)
     @human_board = human_board
     @computer_board = computer_board
-  end
-
-  def ships
-    {
-      carriers: [Ship.new(size: 5)],
-      battleships: [Ship.new(size: 4)],
-      cruisers: [Ship.new(size: 3)],
-      destroyers: [Ship.new(size: 2), Ship.new(size: 2)],
-      submarines: [Ship.new(size: 1), Ship.new(size: 1)],
-    }
   end
 
   def winner?
@@ -30,7 +20,57 @@ class Game
 end
 
 class Board
-  def initialize
-    @board = Array.new(10, Array.new(10, ""))
+  def initialize(fleet: fleet)
+    @board = Array.new(10) { Array.new(10, "") }
+    @fleet = fleet
+    @available_rows = [*0..9]
+    # @ship_positions = seed_ships
+  end
+
+  def seed
+    #ships only seeded left to right for now
+    # don't care if ship gets cut off, or overlap
+    @fleet.each do |ship|
+      place(ship)
+    end
+  end
+
+  def place(ship)
+    until set_random_location(ship)
+      puts "Setting #{ship.id} location."
+    end
+  end
+
+  def set_random_location(ship)
+    # direction = :horiz
+    location = [*0..9].sample
+    row = @available_rows.sample
+    if valid_location?(ship, location)
+      set_location(ship, location, row)
+      invalidate_row(row)
+    end
+  end
+
+  def invalidate_row(row)
+    @available_rows.delete(row)
+  end
+
+  def set_location(ship, location, row)
+    (0..ship.size - 1).each do |position|
+      @board[row][location + position] = ship.id
+    # @board[row][location] = ship.id
+    end
+  end
+
+  def valid_location?(ship, location)
+    !ship_too_close_to_west_side?(ship, location) && !ship_too_close_to_east_side?(ship, location)
+  end
+
+  def ship_too_close_to_east_side?(ship, location)
+    false
+  end
+
+  def ship_too_close_to_west_side?(ship, location)
+    (location + ship.size) >= 10
   end
 end
