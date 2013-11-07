@@ -24,16 +24,15 @@ class Board
     @board = Array.new(10) { Array.new(10, "") }
     @fleet = fleet
     @available_rows = [*0..9]
-    # @ship_positions = seed_ships
   end
 
   def seed
-    #ships only seeded left to right for now
-    # don't care if ship gets cut off, or overlap
     @fleet.each do |ship|
       place(ship)
     end
   end
+
+  private
 
   def place(ship)
     until set_random_location(ship)
@@ -58,7 +57,6 @@ class Board
   def set_location(ship, location, row)
     (0..ship.size - 1).each do |position|
       @board[row][location + position] = ship.id
-    # @board[row][location] = ship.id
     end
   end
 
