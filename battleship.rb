@@ -21,7 +21,7 @@ end
 
 class Board
   def initialize(fleet: fleet)
-    @board = Array.new(10) { Array.new(10, "") }
+    @board = Array.new(10) { Array.new(10, "__") }
     @fleet = fleet
     @available_rows = [*0..9]
   end
@@ -32,11 +32,16 @@ class Board
     end
   end
 
+  def print
+    @board.map{ |row| puts row.map{ |element| "%2s" % element }.join(" ") + "\n" }
+  end
+
   private
 
   def place(ship)
+    puts "Setting #{ship.id} location."
     until set_random_location(ship)
-      puts "Setting #{ship.id} location."
+      puts "Re-attempting to set #{ship.id} location."
     end
   end
 

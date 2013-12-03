@@ -14,11 +14,11 @@ b2 = Board.new(fleet: fleet.values.flatten)
 b2.seed
 game = Game.new(human_board: b1, computer_board: b2)
 
-puts game.human_board.inspect
+game.human_board.print
 
 puts "-"*100
 
-puts game.computer_board.inspect
+game.computer_board.print
 
 # until game.winner?
 #   puts "hello"
