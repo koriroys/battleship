@@ -14,6 +14,15 @@ class Game
     @computer_board = computer_board
   end
 
+  def human_turn
+    puts "human is taking a turn"
+    puts "Fire Ze Missiles, Hoooman"
+    x, y = gets.chomp.split.map(&:to_i)
+    puts "you are firing on coordinates x: #{x}, y: #{y}"
+    computer_board.mark(x: x, y: y)
+    computer_board.print
+  end
+
   def winner?
     false
   end
@@ -24,6 +33,10 @@ class Board
     @board = Array.new(10) { Array.new(10, "__") }
     @fleet = fleet
     @available_rows = [*0..9]
+  end
+
+  def mark(x: x, y: y, value: "x")
+    @board[x][y] = value
   end
 
   def seed

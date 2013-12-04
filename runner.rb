@@ -20,6 +20,8 @@ puts "-"*100
 
 game.computer_board.print
 
+game.human_turn
+
 # until game.winner?
 #   puts "hello"
 # end
