@@ -1,5 +1,4 @@
 require 'rspec'
-require './battleship'
 
 describe Game do
   it "has pieces" do
@@ -14,13 +13,5 @@ describe Game do
     # | 1x | Cruiser          | 3 |
     # | 2x | Destroyer        | 2 |
     # | 2x | Submarine        | 1 |
-  end
-
-end
-
-describe Board do
-  lete(:subject) { described_class.new(ships: double('ships'))}
-  it "can seed itself with data" do
-
   end
 end
