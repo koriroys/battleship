@@ -7,24 +7,25 @@ class Game
     @players = [@human_board, @computer_board]
   end
 
-  def next_turn
-    next_player.turn
-  end
-
-  def next_player
-    @players.reverse!.first
-  end
-
-  def human_turn
-    puts "human is taking a turn"
-    puts "Fire Ze Missiles, Hoooman"
-    x, y = gets.chomp.split.map(&:to_i)
-    puts "you are firing on coordinates x: #{x}, y: #{y}"
-    computer_board.mark(x: x, y: y)
-    computer_board.print
+  def next_round
+    players.each do |player|
+      shots_fired = player.turn
+      x, y = shots_fired
+      opponent(player).mark(x: x, y: y)
+      player.print
+      puts "*" * 50
+    end
   end
 
   def winner?
     false
   end
+
+  private
+
+  def opponent(player)
+    (players - [player]).first
+  end
+
+  attr_reader :players
 end

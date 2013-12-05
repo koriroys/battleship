@@ -25,7 +25,7 @@ game = Game.new(human_board: b1, computer_board: b2)
 # game.human_turn
 
 until game.winner?
-  game.next_turn
+  game.next_round
 end
 
 game.print_win_message

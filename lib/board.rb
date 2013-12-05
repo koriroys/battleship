@@ -10,9 +10,7 @@ class Board
   end
 
   def turn
-    print
-    puts "*" * 50
-    sleep 0.5
+    randomize_shot
   end
 
   def seed
@@ -26,6 +24,12 @@ class Board
   end
 
   private
+
+  def randomize_shot
+    row_size = @board.size
+    column_size = @board.first.size
+    [[*0...row_size].sample, [*0...column_size].sample]
+  end
 
   def place(ship)
     puts "Setting #{ship.id} location."
