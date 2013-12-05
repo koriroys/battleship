@@ -1,92 +1,29 @@
-class Ship
-  attr_reader :id, :size
+require './lib/board'
+require './lib/game'
+require './lib/ship'
 
-  def initialize(size: 0, id: id)
-    @size = size
-    @id = id
-  end
-end
+fleet = {
+  carriers: [Ship.new(size: 5, id: :c)],
+  battleships: [Ship.new(size: 4, id: :b)],
+  cruisers: [Ship.new(size: 3, id: :cr)],
+  destroyers: [Ship.new(size: 2, id: :d1), Ship.new(size: 2, id: :d2)],
+  submarines: [Ship.new(size: 1, id: :s1), Ship.new(size: 1, id: :s2)]
+}
 
-class Game
-  attr_reader :human_board, :computer_board
-  def initialize(human_board: human_board, computer_board: computer_board)
-    @human_board = human_board
-    @computer_board = computer_board
-  end
+b1 = Board.new(fleet: fleet.values.flatten)
+b1.seed
+b2 = Board.new(fleet: fleet.values.flatten)
+b2.seed
+game = Game.new(human_board: b1, computer_board: b2)
 
-  def human_turn
-    puts "human is taking a turn"
-    puts "Fire Ze Missiles, Hoooman"
-    x, y = gets.chomp.split.map(&:to_i)
-    puts "you are firing on coordinates x: #{x}, y: #{y}"
-    computer_board.mark(x: x, y: y)
-    computer_board.print
-  end
+game.human_board.print
 
-  def winner?
-    false
-  end
-end
+puts "-"*100
 
-class Board
-  def initialize(fleet: fleet)
-    @board = Array.new(10) { Array.new(10, "__") }
-    @fleet = fleet
-    @available_rows = [*0..9]
-  end
+game.computer_board.print
 
-  def mark(x: x, y: y, value: "x")
-    @board[x][y] = value
-  end
+game.human_turn
 
-  def seed
-    @fleet.each do |ship|
-      place(ship)
-    end
-  end
-
-  def print
-    @board.map{ |row| puts row.map{ |element| "%2s" % element }.join(" ") + "\n" }
-  end
-
-  private
-
-  def place(ship)
-    puts "Setting #{ship.id} location."
-    until set_random_location(ship)
-      puts "Re-attempting to set #{ship.id} location."
-    end
-  end
-
-  def set_random_location(ship)
-    # direction = :horiz
-    location = [*0..9].sample
-    row = @available_rows.sample
-    if valid_location?(ship, location)
-      set_location(ship, location, row)
-      invalidate_row(row)
-    end
-  end
-
-  def invalidate_row(row)
-    @available_rows.delete(row)
-  end
-
-  def set_location(ship, location, row)
-    (0..ship.size - 1).each do |position|
-      @board[row][location + position] = ship.id
-    end
-  end
-
-  def valid_location?(ship, location)
-    !ship_too_close_to_west_side?(ship, location) && !ship_too_close_to_east_side?(ship, location)
-  end
-
-  def ship_too_close_to_east_side?(ship, location)
-    false
-  end
-
-  def ship_too_close_to_west_side?(ship, location)
-    (location + ship.size) >= 10
-  end
-end
+# until game.winner?
+#   puts "hello"
+# end
