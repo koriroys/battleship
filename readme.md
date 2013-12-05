@@ -1,7 +1,5 @@
 # Battleship Challenge
 
-## Original gist
-
 ## Objectives
 
 Build an interactive command-line game of Battleship! The full rules are on wikipedia, but here's an abridged version from Samuel Bednar:
@@ -13,6 +11,7 @@ Build an interactive command-line game of Battleship! The full rules are on wiki
 
 # Fleet table
 
+<pre>
 | #  | Ship             | Size |
 | -- | ---------------- | ---- |
 | 1x | Aircraft carrier | 5    |
@@ -20,6 +19,7 @@ Build an interactive command-line game of Battleship! The full rules are on wiki
 | 1x | Cruiser          | 3    |
 | 2x | Destroyer        | 2    |
 | 2x | Submarine        | 1    |
+</pre>
 
 ## Objectives
 
