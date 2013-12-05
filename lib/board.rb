@@ -9,6 +9,12 @@ class Board
     @board[x][y] = value
   end
 
+  def turn
+    print
+    puts "*" * 50
+    sleep 0.5
+  end
+
   def seed
     @fleet.each do |ship|
       place(ship)

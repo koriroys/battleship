@@ -16,14 +16,16 @@ b2 = Board.new(fleet: fleet.values.flatten)
 b2.seed
 game = Game.new(human_board: b1, computer_board: b2)
 
-game.human_board.print
+# game.human_board.print
 
-puts "-"*100
+# puts "-"*100
 
-game.computer_board.print
+# game.computer_board.print
 
-game.human_turn
+# game.human_turn
 
-# until game.winner?
-#   puts "hello"
-# end
+until game.winner?
+  game.next_turn
+end
+
+game.print_win_message

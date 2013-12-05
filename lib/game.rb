@@ -4,6 +4,15 @@ class Game
   def initialize(human_board: human_board, computer_board: computer_board)
     @human_board = human_board
     @computer_board = computer_board
+    @players = [@human_board, @computer_board]
+  end
+
+  def next_turn
+    next_player.turn
+  end
+
+  def next_player
+    @players.reverse!.first
   end
 
   def human_turn
