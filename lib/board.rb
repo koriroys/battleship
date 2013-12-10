@@ -5,7 +5,8 @@ class Board
     @available_rows = [*0..9]
   end
 
-  def mark(x: x, y: y, value: "x")
+  def mark(shots, value: "x")
+    x, y = shots.first
     @board[x][y] = value
   end
 
@@ -28,7 +29,7 @@ class Board
   def randomize_shot
     row_size = @board.size
     column_size = @board.first.size
-    [[*0...row_size].sample, [*0...column_size].sample]
+    [[[*0...row_size].sample, [*0...column_size].sample]]
   end
 
   def place(ship)

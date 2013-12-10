@@ -4,14 +4,13 @@ class Game
   def initialize(human_board: human_board, computer_board: computer_board)
     @human_board = human_board
     @computer_board = computer_board
-    @players = [@human_board, @computer_board]
+    @players = [Player.new(board: @human_board), Player.new(board: @computer_board)]
   end
 
   def next_round
     players.each do |player|
       shots_fired = player.turn
-      x, y = shots_fired
-      opponent(player).mark(x: x, y: y)
+      opponent(player).mark(shots_fired)
       player.print
       puts "*" * 50
     end
@@ -28,4 +27,22 @@ class Game
   end
 
   attr_reader :players
+end
+
+class Player
+  def initialize(board: board)
+    @board = board
+  end
+
+  def turn
+    @board.turn
+  end
+
+  def mark(shots)
+    @board.mark(shots)
+  end
+
+  def print
+    @board.print
+  end
 end
