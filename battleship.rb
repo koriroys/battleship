@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/game'
 require './lib/ship'
+require './lib/player'
 
 fleet = {
   carriers: [Ship.new(size: 5, id: :c)],
