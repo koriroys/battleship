@@ -1,6 +1,4 @@
 class Game
-  attr_reader :human_board, :computer_board
-
   def initialize(human_board: human_board, computer_board: computer_board)
     @human_board = human_board
     @computer_board = computer_board
@@ -12,6 +10,8 @@ class Game
       available_shots = opponent(player).available_shots
       shots_fired = player.turn(available_shots)
       opponent(player).mark(shots_fired)
+    end
+    players.each do |player|
       player.print
       puts "*" * 50
     end
