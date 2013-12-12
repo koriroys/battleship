@@ -9,7 +9,8 @@ class Game
 
   def next_round
     players.each do |player|
-      shots_fired = player.turn
+      available_shots = opponent(player).available_shots
+      shots_fired = player.turn(available_shots)
       opponent(player).mark(shots_fired)
       player.print
       puts "*" * 50

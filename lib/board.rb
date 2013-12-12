@@ -7,9 +7,20 @@ class Board
     @available_rows = [*0..9]
   end
 
+  def available_shots
+    available = []
+    board.each.with_index do |row, row_index|
+      row.each.with_index do |position, column_index|
+        available << [row_index, column_index] unless position == "x"
+      end
+    end
+    available
+  end
+
   def mark(shots, value: "x")
-    x, y = shots.first
-    board[x][y] = value
+    shots.each do |x, y|
+      board[x][y] = value
+    end
   end
 
   def turn

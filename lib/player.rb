@@ -3,8 +3,8 @@ class Player
     @board = board
   end
 
-  def turn
-    @board.turn
+  def turn(available_shots)
+    select_salvo(available_shots)
   end
 
   def mark(shots)
@@ -13,5 +13,16 @@ class Player
 
   def print
     @board.print
+  end
+
+  def available_shots
+    @board.available_shots
+  end
+
+  private
+
+  def select_salvo(available_shots)
+    # TODO: number 6 should be ships remaining
+    available_shots.shuffle.first(6)
   end
 end
